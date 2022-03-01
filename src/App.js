@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Today from "./components/Today";
 import FiveDay from "./components/FiveDay";
-import Container from "./components/shared/Container";
+import { Container } from "react-bootstrap";
 
 function App() {
     // const initialState = {
     //     current: {},
     //     daily: [],
     // };
+    const [city, setCity] = useState();
     const [weather, setWeather] = useState({});
     const [isLoading, setLoading] = useState(true);
     async function fetchWeather(coords) {
@@ -25,6 +26,7 @@ function App() {
 
         const response = await fetch(url);
         const data = await response.json();
+        setCity(data.city.name);
         fetchWeather(data.city.coord);
     }
 
@@ -39,6 +41,10 @@ function App() {
         });
     };
 
+    const testFunc = city => {
+        fetchCoords(city);
+    };
+
     useEffect(() => {
         loadDefaultCity();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,17 +52,17 @@ function App() {
 
     if (isLoading) {
         return (
-            <Container>
-                <h1 className="text-center m-5 text-light">LOADING...</h1>
-            </Container>
+            <main className="container rounded m-auto my-5 p-4 bg-secondary">
+                <h1 className="text-center m-5">LOADING...</h1>
+            </main>
         );
     }
 
     return (
         <div>
-            <Header fetchCoords={fetchCoords} />
+            <Header testFunc={testFunc} />
             <main className="container rounded m-auto my-5 p-4 bg-secondary">
-                <Today current={weather.current} />
+                <Today current={weather.current} city={city} />
 
                 <Container>
                     <h1 className="py-3">5-Day Forecast</h1>

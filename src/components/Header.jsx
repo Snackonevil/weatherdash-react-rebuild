@@ -1,11 +1,18 @@
 import { useState } from "react";
+import Button from "./shared/Button";
+import HistoryMenu from "./HistoryMenu";
 
-const Header = ({ fetchCoords }) => {
+const Header = ({ testFunc }) => {
     const [city, setCity] = useState("");
+    const [history, setHistory] = useState();
+
+    const clearHistory = () => {
+        console.log("cleared");
+    };
 
     const submit = e => {
         e.preventDefault();
-        // fetchCoords(city);
+        testFunc(city);
     };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,10 +26,12 @@ const Header = ({ fetchCoords }) => {
                         placeholder="Enter City"
                         onChange={e => setCity(e.target.value)}
                     />
-                    <button className="btn btn-secondary" onClick={submit}>
-                        Search
-                    </button>
+                    <Button text="Search" func={submit} />
                 </form>
+                <div className="d-flex">
+                    <HistoryMenu />
+                    <Button text="Clear" func={clearHistory} />
+                </div>
             </div>
         </nav>
     );

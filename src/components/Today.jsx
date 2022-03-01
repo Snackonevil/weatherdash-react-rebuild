@@ -1,7 +1,7 @@
 import Icon from "./shared/Icon";
-import Container from "./shared/Container";
+import { Container, Row } from "react-bootstrap";
 
-const Today = ({ current }) => {
+const Today = ({ current, city }) => {
     let uvColor = "";
     if (current.uvi < 3) {
         uvColor = "success";
@@ -12,13 +12,15 @@ const Today = ({ current }) => {
     }
     return (
         <section className="border-bottom">
-            <h1 className="display-1">Now in your area</h1>
             <Container>
+                <h1 className="display-1">
+                    Right now in {!city ? "your area" : city}
+                </h1>
                 <h3>
-                    {Math.floor(current.temp)}F | Feels like:
-                    {Math.floor(current.feels_like)}
+                    {Math.floor(current.temp)}&#176;F | Feels like:{" "}
+                    {Math.floor(current.feels_like)}&#176;F
                 </h3>
-                <div className="row">
+                <Row>
                     <Icon icon={`${current.weather[0].icon}`} size="4" />
                     <div className="col-md-3 col-sm-12 p-5">
                         <h4>{current.humidity}% humidity</h4>
@@ -31,7 +33,7 @@ const Today = ({ current }) => {
                         </h4>
                         <h3>{current.weather[0].description}</h3>
                     </div>
-                </div>
+                </Row>
             </Container>
         </section>
     );
