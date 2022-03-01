@@ -13,6 +13,7 @@ function App() {
     const [city, setCity] = useState();
     const [weather, setWeather] = useState({});
     const [isLoading, setLoading] = useState(true);
+
     async function fetchWeather(coords) {
         const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=hourly,minutely&units=imperial&appid=9eae40a4431a1836c424f06650dd3e9d`;
         const response = await fetch(url);
@@ -22,12 +23,13 @@ function App() {
     }
 
     async function fetchCoords(city) {
-        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=9eae40a4431a1836c424f06650dd3e9d`;
+        // const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=9eae40a4431a1836c424f06650dd3e9d`;
 
-        const response = await fetch(url);
-        const data = await response.json();
-        setCity(data.city.name);
-        fetchWeather(data.city.coord);
+        // const response = await fetch(url);
+        // const data = await response.json();
+        // setCity(data.city.name);
+        // fetchWeather(data.city.coord);
+        console.log("fetching coords...");
     }
 
     const loadDefaultCity = () => {
@@ -41,10 +43,6 @@ function App() {
         });
     };
 
-    const testFunc = city => {
-        fetchCoords(city);
-    };
-
     useEffect(() => {
         loadDefaultCity();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,23 +51,24 @@ function App() {
     if (isLoading) {
         return (
             <main className="container rounded m-auto my-5 p-4 bg-secondary">
-                <h1 className="text-center m-5">LOADING...</h1>
+                <h1 className="text-center m-5 p-5">LOADING...</h1>
             </main>
         );
     }
 
     return (
-        <div>
-            <Header testFunc={testFunc} />
+        <>
+            <Header fetchCoords={fetchCoords} />
             <main className="container rounded m-auto my-5 p-4 bg-secondary">
                 <Today current={weather.current} city={city} />
 
                 <Container>
                     <h1 className="py-3">5-Day Forecast</h1>
                 </Container>
+
                 <FiveDay daily={weather.daily} />
             </main>
-        </div>
+        </>
     );
 }
 

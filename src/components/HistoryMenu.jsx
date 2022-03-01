@@ -1,20 +1,32 @@
 import Dropdown from "react-bootstrap/Dropdown";
 
-const HistoryMenu = () => {
+const HistoryMenu = ({ history, handleHistory }) => {
+    const clearHistory = e => {
+        localStorage.clear();
+    };
     return (
         <>
             <Dropdown>
                 <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                     Recents
                 </Dropdown.Toggle>
-
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                        Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                        Something else
+                    {history.map((city, index) => {
+                        return (
+                            <Dropdown.Item
+                                key={index}
+                                value={city}
+                                onClick={e => {
+                                    handleHistory(e.target.innerText);
+                                }}
+                            >
+                                {city}
+                            </Dropdown.Item>
+                        );
+                    })}
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={clearHistory}>
+                        Clear History
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

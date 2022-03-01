@@ -1,19 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "./shared/Button";
 import HistoryMenu from "./HistoryMenu";
 
-const Header = ({ testFunc }) => {
-    const [city, setCity] = useState("");
-    const [history, setHistory] = useState();
+const mockHistory = ["atlanta", "san diego", "boulder"];
 
-    const clearHistory = () => {
-        console.log("cleared");
+const Header = ({ fetchCoords }) => {
+    const [city, setCity] = useState("");
+    const [history, setHistory] = useState([]);
+
+    const saveHistory = history => {
+        localStorage.setItem("history", JSON.stringify(history));
+    };
+
+    const handleHistory = city => {
+        if (history.indexOf(city) === -1) {
+            setHistory([city, ...history]);
+            saveHistory([city, ...history]);
+        } else {
+            // if searched before, removes from current index and adds it to front of list to be retrieved first,
+            const filtered = history.filter(item => item != city);
+            setHistory([city, ...filtered]);
+            saveHistory([city, ...filtered]);
+        }
     };
 
     const submit = e => {
         e.preventDefault();
-        testFunc(city);
+        e.target.previousElementSibling.value = "";
+        handleHistory(city);
+        fetchCoords(city);
     };
+
+    const loadHistory = () => {
+        const history = JSON.parse(localStorage.getItem("history"));
+        setHistory(history);
+    };
+
+    useEffect(() => {
+        loadHistory();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="container">
@@ -29,8 +56,10 @@ const Header = ({ testFunc }) => {
                     <Button text="Search" func={submit} />
                 </form>
                 <div className="d-flex">
-                    <HistoryMenu />
-                    <Button text="Clear" func={clearHistory} />
+                    <HistoryMenu
+                        history={history}
+                        handleHistory={handleHistory}
+                    />
                 </div>
             </div>
         </nav>
