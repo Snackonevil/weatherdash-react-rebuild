@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/weatherdash-react-rebuild/static/css/main.ca4e8884.css",
+    "main.js": "/weatherdash-react-rebuild/static/js/main.e14ba5c0.js",
+    "index.html": "/weatherdash-react-rebuild/index.html",
+    "main.ca4e8884.css.map": "/weatherdash-react-rebuild/static/css/main.ca4e8884.css.map",
+    "main.e14ba5c0.js.map": "/weatherdash-react-rebuild/static/js/main.e14ba5c0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca4e8884.css",
+    "static/js/main.e14ba5c0.js"
+  ]
+}
