@@ -23,12 +23,12 @@ function App() {
     }
 
     async function fetchCoords(city) {
-        // const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=9eae40a4431a1836c424f06650dd3e9d`;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=9eae40a4431a1836c424f06650dd3e9d`;
 
-        // const response = await fetch(url);
-        // const data = await response.json();
-        // setCity(data.city.name);
-        // fetchWeather(data.city.coord);
+        const response = await fetch(url);
+        const data = await response.json();
+        setCity(data.city.name);
+        fetchWeather(data.city.coord);
         console.log("fetching coords...");
     }
 

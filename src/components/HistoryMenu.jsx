@@ -1,6 +1,6 @@
 import Dropdown from "react-bootstrap/Dropdown";
 
-const HistoryMenu = ({ history, handleHistory }) => {
+const HistoryMenu = ({ history, handleRecent }) => {
     const clearHistory = e => {
         localStorage.clear();
     };
@@ -17,7 +17,7 @@ const HistoryMenu = ({ history, handleHistory }) => {
                                 key={index}
                                 value={city}
                                 onClick={e => {
-                                    handleHistory(e.target.innerText);
+                                    handleRecent(e.target.innerText);
                                 }}
                             >
                                 {city}

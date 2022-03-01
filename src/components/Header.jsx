@@ -24,7 +24,12 @@ const Header = ({ fetchCoords }) => {
         }
     };
 
-    const submit = e => {
+    const handleRecent = city => {
+        handleHistory(city);
+        fetchCoords(city);
+    };
+
+    const handleSubmit = e => {
         e.preventDefault();
         e.target.previousElementSibling.value = "";
         handleHistory(city);
@@ -53,12 +58,12 @@ const Header = ({ fetchCoords }) => {
                         placeholder="Enter City"
                         onChange={e => setCity(e.target.value)}
                     />
-                    <Button text="Search" func={submit} />
+                    <Button text="Search" func={handleSubmit} />
                 </form>
                 <div className="d-flex">
                     <HistoryMenu
                         history={history}
-                        handleHistory={handleHistory}
+                        handleRecent={handleRecent}
                     />
                 </div>
             </div>
