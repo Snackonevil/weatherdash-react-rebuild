@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import Button from "./shared/Button";
 import HistoryMenu from "./HistoryMenu";
 
-const mockHistory = ["atlanta", "san diego", "boulder"];
-
 const Header = ({ fetchCoords }) => {
     const [city, setCity] = useState("");
     const [history, setHistory] = useState([]);
@@ -22,7 +20,7 @@ const Header = ({ fetchCoords }) => {
             saveHistory([city, ...history]);
         } else {
             // if searched before, removes from current index and adds it to front of list to be retrieved first,
-            const filtered = history.filter(item => item != city);
+            const filtered = history.filter(item => item !== city);
             setHistory([city, ...filtered]);
             saveHistory([city, ...filtered]);
         }
