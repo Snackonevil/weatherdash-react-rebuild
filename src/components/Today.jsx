@@ -16,7 +16,7 @@ const Today = ({ current, city }) => {
                 <h1 className="display-1">
                     Right now in {!city ? "your area" : city}
                 </h1>
-                <h3>
+                <h3 style={{ color: "steelblue" }}>
                     {Math.floor(current.temp)}&#176;F | Feels like:{" "}
                     {Math.floor(current.feels_like)}&#176;F
                 </h3>
