@@ -13,7 +13,11 @@ const Header = ({ fetchCoords }) => {
     };
 
     const handleHistory = city => {
-        if (history.indexOf(city) === -1) {
+        if (history == null) {
+            setHistory([city]);
+            saveHistory([city]);
+            // if not searched before, adds to front
+        } else if (history.indexOf(city) === -1) {
             setHistory([city, ...history]);
             saveHistory([city, ...history]);
         } else {
@@ -64,6 +68,7 @@ const Header = ({ fetchCoords }) => {
                     <HistoryMenu
                         history={history}
                         handleRecent={handleRecent}
+                        loadHistory={loadHistory}
                     />
                 </div>
             </div>

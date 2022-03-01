@@ -6,10 +6,6 @@ import FiveDay from "./components/FiveDay";
 import { Container } from "react-bootstrap";
 
 function App() {
-    // const initialState = {
-    //     current: {},
-    //     daily: [],
-    // };
     const [city, setCity] = useState();
     const [weather, setWeather] = useState({});
     const [isLoading, setLoading] = useState(true);
@@ -29,7 +25,6 @@ function App() {
         const data = await response.json();
         setCity(data.city.name);
         fetchWeather(data.city.coord);
-        console.log("fetching coords...");
     }
 
     const loadDefaultCity = () => {
